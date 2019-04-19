@@ -5,4 +5,10 @@ var server = new StaticServer({
 });
 server.start(function () {
     console.log('Server listening to', server.port);
+    console.log('Open browser http://localhost:'+server.port);
+    
+    const open = require('open');
+    (async () => {
+        await open('http://localhost:1337');
+    })();
 });

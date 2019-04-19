@@ -25,6 +25,7 @@
   "author": "LW",
   "license": "MIT",
   "dependencies": {
+    "open": "^6.1.0",
     "static-server": "^2.2.1"
   }
 }
