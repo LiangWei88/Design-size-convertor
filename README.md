@@ -1,6 +1,6 @@
 # css 长度单位转换器
 
-对传入字符串进行正则替换，可以按顺序执行多个步骤，好用记得 star 哦。
+对传入字符串进行正则替换，可以按顺序执行多个步骤，不 star 一个吗？
 (https://github.com/LiangWei88/Design-size-convertor)
 
 ## 单位转换
@@ -40,8 +40,8 @@ npm i --save design-size-convertor 安装完，
 ### 下载压缩包
 到 github 上面直接下载
 然后运行 node index.js
-记得 star 哦。
-### 直接使用
+
+### 直接使用，不 star 一个吗？
 [github page](https://liangwei88.github.io/Design-size-convertor/)
 
 ## TODO
