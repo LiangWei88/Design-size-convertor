@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <title>Css 转换器</title>
+        <style>
+            .operationItem {
+                margin: 24px;
+            }
+            .cssInputArea {
+                width: 49%;
+                padding: 24px;
+            }
+            .deleteBtn {
+                margin-left: 48px;
+            }
+            .operationParams {
+                margin-top: 12px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid #888;
+            }
+            .mainBtns {
+                text-align: center;
+            }
+            .mainBtn {
+                font-size: 30px;
+                margin: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <textarea class="cssInputArea" name="originCss" cols="80" rows="28" v-model="originCss" placeholder="请粘贴源 CSS"></textarea>
+            <textarea class="cssInputArea" name="resultCss" cols="80" rows="28" v-model="resultCss" placeholder="待生成结果 CSS"></textarea>
+            <br>
+            <div class="operationItem" v-for="(operation, index) in operationList" :key="index">
+                <span>第 {{index + 1}} 步</span> 
+                <span class="title">
+                    <select name="fn-choice" v-model="operation.fn">                                        
+                        <option value="convertUnit">{{operationNameList.convertUnit}}</option>                                    
+                        <option value="convertNumber">{{operationNameList.convertNumber}}</option>                                    
+                    </select>
+                </span>
+                <button class="deleteBtn" @click="deleteOperation(index)">删除?</button>
+                <div class="operationParams" v-if="operation.fn == 'convertUnit'">
+                    从 <input type="text" placeholder="请输入 rem/px/em" v-model="operation.params[0]"> 单位，
+                    转换到 <input type="text" placeholder="请输入 rem/px/em" v-model="operation.params[1]"> 单位
+                    比例 1 : <input type="number" placeholder="请输入 数字" v-model="operation.params[2]">，
+                    保留 <input type="number" placeholder="请输入 数字" v-model="operation.params[3]"> 位小数
+                </div>
+                <div class="operationParams" v-if="operation.fn == 'convertNumber'">
+                    按 <input type="number" placeholder="请输入 数字" v-model="operation.params[0]">
+                    比 <input type="number" placeholder="请输入 数字" v-model="operation.params[1]"> 的比例转换
+                    单位是 <input type="text" placeholder="请输入 rem/px/em" v-model="operation.params[2]">，
+                    保留 <input type="number" placeholder="请输入 数字" v-model="operation.params[3]"> 位小数
+                </div>
+            </div>
+            <div class="mainBtns">
+                <button class="mainBtn" @click="addOperation()">添加操作</button>
+                <button class="mainBtn" @click="launchConvertor()">执行转换</button>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script>
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    originCss: "",
+                    resultCss: "",
+                    operationNameList:{
+                        convertUnit: "单位转换",
+                        convertNumber: "数字等比转换"
+                    },
+                    operationList: []
+                },
+                methods: {
+                    addOperation() {
+                        this.operationList.push({
+                            fn: 'convertUnit',
+                            params: []
+                        })
+                    },
+                    deleteOperation(index) {
+                        this.operationList.splice(index, 1);
+                    },
+                    convertUnit(originCss, fromUnit, toUnit, diffTimes, decimal) {
+                        const patternStr = "([0-9,.]+)("+fromUnit+")([;| |}])"
+                        const pattern = new RegExp(patternStr, "g");
+                        const newCss = originCss.replace(pattern,function(valueGlobal, v1, v2, v3){
+                            const number = Number(v1);
+                            const numberConvert = number * diffTimes;
+                            const numberRes = numberConvert.toFixed(decimal);
+                            const newValueStr = numberRes + toUnit + v3;
+                            return newValueStr;
+                        });
+                        return newCss;
+                    },
+
+                    convertNumber(originCss, fromNum, toNum, unit, decimal) {
+                        const patternStr = "([0-9,.]+)("+unit+"[;| |}])";
+                        const pattern = new RegExp(patternStr, "g");
+                        const newCss = originCss.replace(pattern,function(valueGlobal, v1, v2){
+                            const number = Number(v1);
+                            const numberConvert = (number * toNum) / fromNum
+                            const numberRes = numberConvert.toFixed(decimal);
+                            const newValueStr = numberRes+v2;
+                            return newValueStr;
+                        });
+                        return newCss;
+                    },
+
+                    launchConvertor() {
+                        console.log(this.originCss)
+                        this.resultCss = this.originCss;
+                        this.operationList.forEach(element => {
+                            this.resultCss = this[element.fn](this.resultCss, ...element.params);
+                        });
+                    }
+                }
+            });
+
+        </script>
+    </body>
+</html>
