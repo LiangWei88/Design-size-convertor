@@ -1,7 +1,7 @@
 # css 长度单位转换器
 
 对传入字符串进行正则替换，可以按顺序执行多个步骤，好用记得 star 哦。
-[https://liangwei88.github.io/design-px-convertor/]
+(https://github.com/LiangWei88/Design-size-convertor)
 
 ## 单位转换
 * 一个单位按比例转换为另一个单位，如 16px, 转换为 rem 按照 1 像素等于 0.01 rem 的比值，保留 2 位小数，得出 0.16rem
@@ -41,6 +41,8 @@ npm i --save design-size-convertor 安装完，
 到 github 上面直接下载
 然后运行 node index.js
 记得 star 哦。
+### 直接使用
+[github page](https://liangwei88.github.io/Design-size-convertor/)
 
 ## TODO
 1. 做成 webpack loader
