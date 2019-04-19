@@ -1,6 +1,6 @@
 {
   "name": "design-size-convertor",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "Calculate real dimention according the design dimention, support px/rem/ etc. 根据设计长度算出特定宽度下的对应长度。",
   "main": "index.js",
   "scripts": {

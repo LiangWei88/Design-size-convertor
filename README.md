@@ -24,6 +24,23 @@
     margin: 16px 22px;
     font-size: 32px}
 ```
+## 使用方法
+### 直接使用
+ * npm i --save design-size-convertor
+ * node node_modules/design-size-convertor/index.js
+### 快捷脚本
+npm i --save design-size-convertor 安装完，  
+可以把 node node_modules/design-size-convertor/index.js 放入到你的 package.json 的 script 里面
+```
+"script" : {
+    "dsc": "node node_modules/design-size-convertor/index.js"
+} 
+```
+然后使用 npm run dsc
+### 下载压缩包
+到 github 上面直接下载
+然后运行 node index.js
+记得 star 哦。
 
 ## TODO
 1. 做成 webpack loader
