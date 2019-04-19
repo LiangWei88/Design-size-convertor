@@ -23,5 +23,8 @@
     "转换"
   ],
   "author": "LW",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "static-server": "^2.2.1"
+  }
 }
