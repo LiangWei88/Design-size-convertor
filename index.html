@@ -8,6 +8,9 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <title>Css 转换器</title>
         <style>
+            [v-clock] {
+                display: none;
+            }
             .operationItem {
                 margin: 24px;
             }
@@ -33,7 +36,7 @@
         </style>
     </head>
     <body>
-        <div id="app">
+        <div id="app" v-clock>
             <textarea class="cssInputArea" name="originCss" cols="80" rows="28" v-model="originCss" placeholder="请粘贴源 CSS"></textarea>
             <textarea class="cssInputArea" name="resultCss" cols="80" rows="28" v-model="resultCss" placeholder="待生成结果 CSS"></textarea>
             <br>
@@ -65,7 +68,7 @@
             </div>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
         <script>
             var app = new Vue({
                 el: '#app',
